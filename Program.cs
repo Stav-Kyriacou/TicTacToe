@@ -10,44 +10,59 @@ namespace TicTacToe
         static void Main(string[] args)
         {
             //add option to reset game
+            //create a loop around everything
+            //after exiting the victory loop ask to play again, Y/N
+            //while yes keep looping
+            //while no exit
 
             bool validInput = false;
             bool player1Turn = true;
+            bool keepPlaying = true;
 
-            while (!victory)
+
+            while (keepPlaying)
             {
-                DrawGrid();
-                validInput = false;                                     //set false to enter the input validation loop
 
-                if (player1Turn)
+                while (!victory)
                 {
-                    Console.WriteLine("Player 1's Turn");
-                }
-                else
-                {
-                    Console.WriteLine("Player 2's Turn");
-                }
+                    DrawGrid();
+                    validInput = false;                                     //set false to enter the input validation loop
 
-                while (!validInput)
-                {
-                    Console.Write("Enter a grid number: ");
-
-                    if (int.TryParse(Console.ReadLine(), out int input))
+                    if (player1Turn)
                     {
-                        if ((input > 0 && input < 10) && (grid[input - 1] != "X" && grid[input - 1] != "O"))
+                        Console.WriteLine("Player 1's Turn");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Player 2's Turn");
+                    }
+
+                    while (!validInput)
+                    {
+                        Console.Write("Enter a grid number: ");
+
+                        if (int.TryParse(Console.ReadLine(), out int input))
                         {
-                            if (player1Turn)
+                            if ((input > 0 && input < 10) && (grid[input - 1] != "X" && grid[input - 1] != "O"))
                             {
-                                grid[input - 1] = "X";
-                                player1Turn = false;
+                                if (player1Turn)
+                                {
+                                    grid[input - 1] = "X";
+                                    player1Turn = false;
+                                }
+                                else
+                                {
+                                    grid[input - 1] = "O";
+                                    player1Turn = true;
+                                }
+                                validInput = true;
+                                CheckVictory();
                             }
                             else
                             {
-                                grid[input - 1] = "O";
-                                player1Turn = true;
+                                WriteInputError();
+                                validInput = false;
                             }
-                            validInput = true;
-                            CheckVictory();
                         }
                         else
                         {
@@ -55,25 +70,35 @@ namespace TicTacToe
                             validInput = false;
                         }
                     }
-                    else
-                    {
-                        WriteInputError();
-                        validInput = false;
-                    }
+
                 }
 
-            }
+                //win con achieved
+                DrawGrid();
 
-            //win con achieved
-            DrawGrid();
+                if (!player1Turn)
+                {
+                    Console.WriteLine("Player 1 wins!");
+                }
+                else
+                {
+                    Console.WriteLine("Player 2 wins!");
+                }
 
-            if (!player1Turn)
-            {
-                Console.WriteLine("Player 1 wins!");
-            }
-            else
-            {
-                Console.WriteLine("Player 2 wins!");
+                Console.WriteLine();
+                Console.Write("Continue playing? Type 'Y' to continue or anything else to exit: ");
+                string keepPlayingInput = Console.ReadLine().ToUpper();
+
+                if (keepPlayingInput == "Y")
+                {
+                    keepPlaying = true;
+                    victory = false;
+                    ResetGrid();
+                }
+                else
+                {
+                    keepPlaying = false;
+                }
             }
         }
 
@@ -90,6 +115,13 @@ namespace TicTacToe
             Console.WriteLine("   |   |   ");
             Console.WriteLine(" {0} | {1} | {2} ", grid[6], grid[7], grid[8]);
             Console.WriteLine("   |   |   ");
+        }
+        public static void ResetGrid()
+        {
+            for (int i = 0; i < grid.Length; i++)
+            {
+                grid[i] = i + 1.ToString();
+            }
         }
         public static void CheckVictory()
         {
