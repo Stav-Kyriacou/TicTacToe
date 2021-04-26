@@ -120,7 +120,7 @@ namespace TicTacToe
         {
             for (int i = 0; i < grid.Length; i++)
             {
-                grid[i] = i + 1.ToString();
+                grid[i] = (i + 1).ToString();
             }
         }
         public static void CheckVictory()
