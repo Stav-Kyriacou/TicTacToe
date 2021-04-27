@@ -9,20 +9,12 @@ namespace TicTacToe
         public static bool victory = false;
         static void Main(string[] args)
         {
-            //add option to reset game
-            //create a loop around everything
-            //after exiting the victory loop ask to play again, Y/N
-            //while yes keep looping
-            //while no exit
-
             bool validInput = false;
             bool player1Turn = true;
             bool keepPlaying = true;
 
-
             while (keepPlaying)
             {
-
                 while (!victory)
                 {
                     DrawGrid();
@@ -70,10 +62,8 @@ namespace TicTacToe
                             validInput = false;
                         }
                     }
-
                 }
 
-                //win con achieved
                 DrawGrid();
 
                 if (!player1Turn)
@@ -104,7 +94,6 @@ namespace TicTacToe
 
         public static void DrawGrid()
         {
-            //clears the console and draws the grid
             Console.Clear();
             Console.WriteLine("   |   |   ");
             Console.WriteLine(" {0} | {1} | {2} ", grid[0], grid[1], grid[2]);
@@ -125,7 +114,6 @@ namespace TicTacToe
         }
         public static void CheckVictory()
         {
-            //checks all possible victory conditions
             if ((grid[0] == "X" && grid[1] == "X" && grid[2] == "X") ||                 //horizontal X win cons
                 (grid[3] == "X" && grid[4] == "X" && grid[5] == "X") ||
                 (grid[6] == "X" && grid[7] == "X" && grid[8] == "X") ||
