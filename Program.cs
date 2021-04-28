@@ -37,7 +37,7 @@ namespace TicTacToe
                         {
                             if ((input > 0 && input < 10) && (grid[input - 1] != "X" && grid[input - 1] != "O"))    //if the number is within range and is not already taken
                             {
-                                if (player1Turn)                    //write X or O into the grid depending on whose turn it is
+                                if (player1Turn)                                    //write X or O into the grid depending on whose turn it is
                                 {
                                     grid[input - 1] = "X";
                                     player1Turn = false;
