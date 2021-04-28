@@ -20,7 +20,7 @@ namespace TicTacToe
                     DrawGrid();
                     validInput = false;                                     //set false to enter the input validation loop
 
-                    if (player1Turn)
+                    if (player1Turn)                                        //write whose turn it is
                     {
                         Console.WriteLine("Player 1's Turn");
                     }
@@ -33,11 +33,11 @@ namespace TicTacToe
                     {
                         Console.Write("Enter a grid number: ");
 
-                        if (int.TryParse(Console.ReadLine(), out int input))
+                        if (int.TryParse(Console.ReadLine(), out int input))        //check if the input is a number
                         {
-                            if ((input > 0 && input < 10) && (grid[input - 1] != "X" && grid[input - 1] != "O"))
+                            if ((input > 0 && input < 10) && (grid[input - 1] != "X" && grid[input - 1] != "O"))    //if the number is within range and is not already taken
                             {
-                                if (player1Turn)
+                                if (player1Turn)                    //write X or O into the grid depending on whose turn it is
                                 {
                                     grid[input - 1] = "X";
                                     player1Turn = false;
@@ -66,7 +66,7 @@ namespace TicTacToe
 
                 DrawGrid();
 
-                if (!player1Turn)
+                if (!player1Turn)                                   //display who won
                 {
                     Console.WriteLine("Player 1 wins!");
                 }
@@ -76,10 +76,10 @@ namespace TicTacToe
                 }
 
                 Console.WriteLine();
-                Console.Write("Continue playing? Type 'Y' to continue or anything else to exit: ");
+                Console.Write("Continue playing? Type 'y' to continue or anything else to exit: ");
                 string keepPlayingInput = Console.ReadLine().ToUpper();
 
-                if (keepPlayingInput == "Y")
+                if (keepPlayingInput == "Y")                        //check if they want to keep playing or exit
                 {
                     keepPlaying = true;
                     victory = false;
@@ -90,10 +90,12 @@ namespace TicTacToe
                     keepPlaying = false;
                 }
             }
+            Console.WriteLine("Thanks for playing!");
         }
 
         public static void DrawGrid()
         {
+            //clears the console then draws the grid
             Console.Clear();
             Console.WriteLine("   |   |   ");
             Console.WriteLine(" {0} | {1} | {2} ", grid[0], grid[1], grid[2]);
@@ -107,6 +109,7 @@ namespace TicTacToe
         }
         public static void ResetGrid()
         {
+            //restores the grid to its default values
             for (int i = 0; i < grid.Length; i++)
             {
                 grid[i] = (i + 1).ToString();
@@ -143,6 +146,7 @@ namespace TicTacToe
         }
         public static void WriteInputError()
         {
+            //writes an input error message in red
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Invalid Input: Enter a number between 1 and 9 that isn't already taken");
             Console.WriteLine();
